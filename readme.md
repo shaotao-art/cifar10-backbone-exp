@@ -4,6 +4,14 @@
 
 NOTE：我上传了tensorboard的log可以自行进行可视化
 
+* 不同学习学习率的影响
+* 使用不同的normalization layer
+* vit在cifar10上的结果
+* 不同的lr scheduler及optimizer
+* 不同batch size
+* 对模型进行scale
+* bn对模型的影响
+
 ## 不同学习学习率的影响
 
 ![截屏2024-06-17 18.53.18.png](pics/2024-06-17_18.53.18.png)
