@@ -1,0 +1,91 @@
+config: !!python/object/new:mmengine.config.config.Config
+  state: !!python/tuple
+  - !!python/object/apply:mmengine.config.config.ConfigDict
+    - act_type: relu
+      cifar_data_root: DATA
+      ckp_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - dirpath: 06-01-24/20:19:00-[backbone-exp]-[scale-model-num-conv-4]
+        every_n_epochs: null
+        save_last: null
+      ckp_root: 06-01-24/20:19:00-[backbone-exp]-[scale-model-num-conv-4]
+      device: cuda
+      enable_wandb: true
+      load_weight_from: null
+      lr_sche_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - num_training_steps: 78200
+          num_warmup_steps: 0
+        type: cosine
+      model_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - act_type: relu
+        base_block_config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - act: relu
+          in_channels: null
+          norm_config: !!python/object/apply:mmengine.config.config.ConfigDict
+          - config: !!python/object/apply:mmengine.config.config.ConfigDict
+            - {}
+            type: bn
+          out_channels: null
+        block_type: TwoConvBlock
+        channels:
+        - 32
+        - 64
+        - 128
+        - 256
+        - 256
+        norm_type: bn
+        num_block_per_stage: 4
+      norm_type: bn
+      num_ep: 100
+      optimizer_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - lr: 0.0003
+        type: adamw
+      resume_ckpt_path: null
+      run_name: scale-model-num-conv-4
+      test_data_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - data_loader_config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - batch_size: 64
+          num_workers: 4
+        dataset_config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - root: DATA
+      train_data_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - data_loader_config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - batch_size: 64
+          num_workers: 4
+        dataset_config: !!python/object/apply:mmengine.config.config.ConfigDict
+        - root: DATA
+      trainer_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - check_val_every_n_epoch: 1
+        log_every_n_steps: 5
+        precision: '32'
+      wandb_config: !!python/object/apply:mmengine.config.config.ConfigDict
+      - offline: true
+        project: backbone-exp
+  - ./configs/config.py
+  - "/home/dmt/shao-tao-working-dir/backbone-exp/configs/config.py\ndevice = 'cuda'\n\
+    \nnum_ep = 100\noptimizer_config = dict(\n    type='adamw',\n    config = dict(\n\
+    \        lr = 3e-4,\n        # momentum=0.9,\n    )\n)\n\nlr_sche_config = dict(\n\
+    \    type = 'cosine',\n    config = dict(\n        # epoches=[60, 80],\n     \
+    \   # muls=[0.1, 0.1]\n    )\n)\n\nact_type = 'relu'\nnorm_type = 'bn'\nmodel_config\
+    \ = dict(\n    channels=[32, 64, 128, 256, 256],\n    num_block_per_stage=4,\n\
+    \    block_type='TwoConvBlock',\n    act_type=act_type,\n    norm_type=norm_type,\n\
+    \    # num_channels_per_gn_group = 1,\n    base_block_config=dict(\n        in_channels=None,\
+    \ \n        out_channels=None,\n        # reduction=16,\n        act=act_type,\n\
+    \        norm_config = dict(\n            type=norm_type,\n            config=dict(\n\
+    \            )\n        )\n    )\n)\n\n\n\ncifar_data_root = 'DATA'\ntrain_data_config\
+    \ = dict(\n    dataset_config = dict(\n        root = cifar_data_root,\n    ),\
+    \ \n    data_loader_config = dict(\n        batch_size = 64,\n        num_workers\
+    \ = 4,\n    )\n)\ntest_data_config = dict(\n    dataset_config = dict(\n     \
+    \   root = cifar_data_root,\n    ), \n    data_loader_config = dict(\n       \
+    \ batch_size = 64,\n        num_workers = 4,\n        \n    )\n)\n\n\n\nresume_ckpt_path\
+    \ = None\nload_weight_from = None\n\n# ckp\nckp_config = dict(\n   save_last=None,\
+    \ \n   every_n_epochs=None,\n#    monitor='val_mae',\n#    mode='min',\n#    filename='{epoch}-{val_mae:.3f}'\n\
+    )\n\n# trainer config\ntrainer_config = dict(\n    log_every_n_steps=5,\n    precision='32',\n\
+    \    # val_check_interval=0.5, # val after k training batch 0.0-1.0, or a int\n\
+    \    check_val_every_n_epoch=1\n)\n\n\n# LOGGING\nenable_wandb = True\nwandb_config\
+    \ = dict(\n    project = 'backbone-exp',\n    offline = True\n)\nckp_root = f'[{wandb_config[\"\
+    project\"]}]'"
+  - {}
+  - true
+  - !!set {}
